@@ -11,4 +11,7 @@
     <item
         android:id="@+id/SignUp"
         android:title="SignUp" />
+    <item
+        android:id="@+id/sellProduct"
+        android:title="Sell Product"/>
 </menu>

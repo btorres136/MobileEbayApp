@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.text.InputType;
@@ -157,6 +158,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                         .replace(R.id.FrameProducts, prod)
                         .commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.sellProduct:
+                Intent intent = new Intent(this, SellProduct.class);
+                startActivity(intent);
                 break;
 
         }
