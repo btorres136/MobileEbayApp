@@ -53,8 +53,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ProductsAdapter.ViewHolder holder, int position) {
         Products product = products.get(position);
         holder.productTitle.setText(product.getTitle());
-        holder.productBid.setText("Last Bid: $"  + product.getBids().get(0).getQuantity());
-        Picasso.get().load("http://192.168.8.131:8080" + product.getImagePath()).fit().centerCrop()
+        if(!product.getBids().isEmpty()){
+            holder.productBid.setText("Last Bid: $"  + product.getBids().get(0).getQuantity());
+        }else{
+            holder.productBid.setText("None");
+        }
+        Picasso.get().load("http://192.168.0.6:8080" + product.getImagePath()).fit().centerCrop()
                 .placeholder(R.drawable.ic_launcher_background).into(holder.productImage);
 
     }

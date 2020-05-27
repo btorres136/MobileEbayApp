@@ -24,6 +24,9 @@ public interface DAO {
     @GET("Departments")
     Call<List<Departments>> getDepartments();
 
+    @GET("Departments/Products/{id}")
+    Call<List<Products>> getProductByDepartment(@Path(value = "id") Long id);
+
     @POST("addBid")
     Call<Products> addBid();
 }

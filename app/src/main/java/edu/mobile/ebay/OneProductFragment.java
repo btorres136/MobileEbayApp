@@ -37,13 +37,17 @@ public class OneProductFragment extends Fragment {
         TextView owner = rootview.findViewById(R.id.owner);
         TextView bid = rootview.findViewById(R.id.bid);
         ImageView image = rootview.findViewById(R.id.prodimage);
-        Picasso.get().load("http://192.168.8.131:8080" + prod.getImagePath()).fit().centerCrop()
+        Picasso.get().load("http://192.168.0.6:8080" + prod.getImagePath()).fit().centerCrop()
                 .placeholder(R.drawable.ic_launcher_background).into(image);
 
         title.setText(prod.getTitle());
         description.setText(prod.getDescription());
         status.setText(prod.getState());
-        bid.setText("$"+prod.getBids().get(0).getQuantity());
+        if(!prod.getBids().isEmpty()){
+            bid.setText("$"+prod.getBids().get(0).getQuantity());
+        }else{
+            bid.setText("None");
+        }
         owner.setText(prod.getOwner());
         end.setText(prod.getEndBid().toString());
 

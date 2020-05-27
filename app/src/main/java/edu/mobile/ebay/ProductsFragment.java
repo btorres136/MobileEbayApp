@@ -54,8 +54,9 @@ public class ProductsFragment extends Fragment {
         if(bundle != null && bundle.getString("query") != null){
             query = (String) bundle.getString("query");
         }
-        if(bundle != null && bundle.getString("department") != null){
+        if(bundle != null && bundle.getLong("department") != 0){
             department =  (Long) bundle.getLong("department");
+            Log.i("Department id on PF",department.toString());
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
         {
@@ -94,8 +95,22 @@ public class ProductsFragment extends Fragment {
                 }
             });
         }else if(Department != null){
+            Call<List<Products>> call = service.getProductByDepartment(Department);
+            call.enqueue(new Callback<List<Products>>() {
+                @Override
+                public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
+                    List<Products> prod = response.body();
+                    Log.v("data", prod.toString());
+                    ProductsAdapter adapter = new ProductsAdapter(getActivity(), prod);
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(adapter);
+                }
 
-
+                @Override
+                public void onFailure(Call<List<Products>> call, Throwable t) {
+                    Log.v("error: ", t.getMessage());
+                }
+            });
         }else{
             Call<List<Products>> call = service.getAllProducts();
             call.enqueue(new Callback<List<Products>>() {
@@ -105,7 +120,7 @@ public class ProductsFragment extends Fragment {
                     ProductsAdapter adapter = new ProductsAdapter(getActivity(), prod);
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(adapter);
-                    Log.v("Response: ", response.body().toString());
+                    //Log.v("Response: ", response.body().toString());
                 }
 
                 @Override

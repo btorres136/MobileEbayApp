@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -54,7 +55,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         department = findViewById(R.id.departmentslayout);
 
         DAO service = RetrofitClient.getRetrofitInstance().create(DAO.class);
+        Log.i("get departments","start");
         Call<List<Departments>> call = service.getDepartments();
+        Log.i("get departments","done");
         call.enqueue(new Callback<List<Departments>>() {
             @Override
             public void onResponse(Call<List<Departments>> call, Response<List<Departments>> response) {
@@ -63,11 +66,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     TextView textView = new TextView(getBaseContext());
                     textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT));
+                    Log.i("departments name", prod.get(i).getDepartmentName());
                     String data = prod.get(i).getDepartmentName().substring(0, 1).toUpperCase() + prod.get(i).getDepartmentName().substring(1);
                     textView.setText(data);
                     textView.setPadding(50, 70, 50, 70);
                     textView.setTextSize(18);
-
+                    department.addView(textView);
 
                     final int x = i;
                     textView.setOnClickListener(new View.OnClickListener() {
@@ -82,14 +86,14 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                             loadFragment(prodfrag);
                         }
                     });
-                    department.addView(textView);
+
                 }
                 Log.v("Response: ", response.body().toString());
             }
             @Override
             public void onFailure(Call<List<Departments>> call, Throwable t) {
                 Log.v("error: ", t.getMessage());
-                //Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
 
