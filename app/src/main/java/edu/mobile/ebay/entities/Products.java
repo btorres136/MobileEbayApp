@@ -45,15 +45,16 @@ public class Products implements Serializable {
     @Expose
     private String Department;
 
-    @SerializedName("bids")
+    @SerializedName("bid")
     @Expose
-    private List<Bids> Bids;
+    private int Bids;
 
     public Products() {
     }
 
-    public Products(String owner, String id, String description, Date endBid, String state, String imagePath,
-                           String title, String itemPath, String department, List<Bids> bids) {
+    public Products(String owner, String id, String description, Date endBid,
+                    String state, String imagePath, String title, String itemPath,
+                    String department, int bids) {
         Owner = owner;
         this.id = id;
         Description = description;
@@ -138,18 +139,27 @@ public class Products implements Serializable {
         Department = department;
     }
 
-    public List<Bids> getBids() {
+    public int getBids() {
         return Bids;
     }
 
-    public void setBids(List<Bids> bids) {
+    public void setBids(int bids) {
         Bids = bids;
     }
 
     @Override
     public String toString() {
-        return "ProductTemplate [Bids=" + Bids + ", Department=" + Department + ", Description="
-                + Description + ", Owner=" + Owner + ", endBid=" + endBid + ", id=" + id + ", imagePath=" + imagePath
-                + ", itemPath=" + itemPath + ", state=" + state + ", title=" + title + "]";
+        return "Products{" +
+                "Owner='" + Owner + '\'' +
+                ", id='" + id + '\'' +
+                ", Description='" + Description + '\'' +
+                ", endBid=" + endBid +
+                ", state='" + state + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", title='" + title + '\'' +
+                ", itemPath='" + itemPath + '\'' +
+                ", Department='" + Department + '\'' +
+                ", Bids=" + Bids +
+                '}';
     }
 }

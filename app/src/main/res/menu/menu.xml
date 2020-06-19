@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/Products"
-        android:title="Products" />
+        android:title="Account"
+        android:id="@+id/Account">
+        <menu>
+            <item
+                android:id="@+id/SignIn"
+                android:icon="@drawable/ic_baseline_account_box_24"
+                android:title="SignIn" />
+        </menu>
+    </item>
     <item
-        android:id="@+id/SignIn"
-        android:title="SignIn" />
-    <item
-        android:id="@+id/SignUp"
-        android:title="SignUp" />
-    <item
-        android:id="@+id/sellProduct"
-        android:title="Sell Product"/>
+        android:title="Menu">
+        <menu>
+            <item
+                android:id="@+id/Products"
+                android:icon="@drawable/list"
+                android:title="Products" />
+            <item
+                android:id="@+id/sellProduct"
+                android:icon="@drawable/ic_baseline_attach_money_24"
+                android:title="Sell Product"/>
+        </menu>
+    </item>
 </menu>

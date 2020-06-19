@@ -8,11 +8,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,10 +24,10 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import edu.mobile.ebay.entities.Departments;
-import edu.mobile.ebay.entities.Products;
 import edu.mobile.ebay.restclient.DAO;
 import edu.mobile.ebay.restclient.RetrofitClient;
 import retrofit2.Call;
@@ -34,16 +36,28 @@ import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout drawerLayout;
-    LinearLayout department;
+    private DrawerLayout drawerLayout;
+    private LinearLayout department;
+    private SharedPreferences shared;
+    private List<Departments> departments;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        shared = getSharedPreferences("jwt",Context.MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         NavigationView navigation = findViewById(R.id.navigationView);
+        Menu menu = navigation.getMenu();
+        if(shared.contains("jwt")){
+            menu.findItem(R.id.Account).setVisible(false);
+        }else{
+            menu.findItem(R.id.sellProduct).setVisible(false);
+        }
+
+
         ActionBarDrawerToggle toggle;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -62,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             @Override
             public void onResponse(Call<List<Departments>> call, Response<List<Departments>> response) {
                 List<Departments> prod = response.body();
+                departments = prod;
                 for(int i = 0; i<prod.size(); i++){
                     TextView textView = new TextView(getBaseContext());
                     textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -151,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()){
             case R.id.Products:
                 Bundle bundle = new Bundle();
@@ -164,10 +180,20 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.sellProduct:
-                Intent intent = new Intent(this, SellProduct.class);
-                startActivity(intent);
+                if(shared.contains("jwt")){
+                    Intent intent = new Intent(this, SellProduct.class);
+                    intent.putExtra("departments", (Serializable) departments);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(this,"Please Login to access this part", Toast.LENGTH_SHORT).show();
+                    Intent login = new Intent(this, Login.class);
+                    startActivity(login);
+                }
                 break;
-
+            case R.id.SignIn:
+                Intent login = new Intent(this, Login.class);
+                startActivity(login);
+                break;
         }
         return false;
     }
