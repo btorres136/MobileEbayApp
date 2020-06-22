@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,79 +8,110 @@
 
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Product Title: "
         android:textColor="@color/black"
-        android:id="@+id/title"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/prodimage"
+        app:layout_constraintEnd_toStartOf="@+id/producttitle"
+        app:layout_constraintHorizontal_bias="0.296"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/producttitle"
-        android:layout_toRightOf="@id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@color/black"
-        android:textSize="20dp" />
-
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/prodimage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/prodimage"
-        android:layout_alignBottom="@id/title"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
-
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@+id/producttitle"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="match_parent"
-        android:layout_alignBottom="@id/prodimage"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="@color/black" />
-
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <TextView
         android:id="@+id/bid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
         android:text="TextView"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status" />
 
     <TextView
         android:id="@+id/end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/owner" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prodimage" />
 
     <TextView
         android:id="@+id/owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bid" />
 
     <EditText
+        android:id="@+id/bidset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="My Bid"
         android:inputType="number"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/end" />
 
     <Button
+        android:id="@+id/placebid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Place Bid"
-        android:textColor="@color/black" />
-</RelativeLayout>
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bidset" />
+</androidx.constraintlayout.widget.ConstraintLayout>

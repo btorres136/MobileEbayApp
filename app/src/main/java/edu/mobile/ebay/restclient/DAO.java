@@ -36,7 +36,7 @@ public interface DAO {
     Call<List<Products>> getProductByDepartment(@Path(value = "id") Long id);
 
     @POST("auth/addBid")
-    Call<Products> addBid(@Header("Authorization") String jwt);
+    Call<Void> addBid(@Header("Authorization") String jwt, @Query(value = "product") String Product, @Query("bidadd") String bidadd);
 
     @POST("api/authenticate")
     Call<JWT> Authenticate(@Body LoginTemplate loginTemplate);

@@ -139,9 +139,9 @@ public class SellProduct extends AppCompatActivity {
                                     } catch (IOException | JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    break;
                                 default:
                                     Toast.makeText(SellProduct.this, "Something is wrong please Login", Toast.LENGTH_SHORT).show();
-
                             }
                         }
                         @Override
